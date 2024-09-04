@@ -1,7 +1,8 @@
 package co.edu.unisabana.demo.bd.orm;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Table(name = "estudiante")
 @Entity
