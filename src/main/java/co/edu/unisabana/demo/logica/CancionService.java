@@ -19,12 +19,12 @@ public class CancionService {
 
     //La logica de negocio, se escribe en los SERVICE!
     //Los controladores no tienen logica de negocio, y los controladores no acceden directamente a la BD.
-    public void guardarCancion(String genero, int duracion, String titulo) {
+    public boolean guardarCancion(String genero, int duracion, String titulo) {
         if ("Baladas".equals(genero)) {
-            throw new RuntimeException("no se permite guardar baladas");
+            throw new ArithmeticException("no se permite guardar baladas");
         }
         if (duracion < 100 || duracion > 600) {
-            throw new RuntimeException("Cancion con duracion invalida");
+            throw new IllegalArgumentException("Cancion con duracion invalida");
         }
         CancionORM nuevaCancion = new CancionORM();
         nuevaCancion.setDuracion(duracion);
@@ -32,6 +32,11 @@ public class CancionService {
         nuevaCancion.setFechaLanzamiento(LocalDate.now());
         nuevaCancion.setGenero(genero);
         cancionJPA.save(nuevaCancion);
+        return true;
+    }
+
+    public int sumar(int numero1, int numero2) {
+        return numero1 + numero2;
     }
 
 }
