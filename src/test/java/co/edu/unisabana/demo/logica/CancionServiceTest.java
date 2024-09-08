@@ -1,7 +1,6 @@
 package co.edu.unisabana.demo.logica;
 
 import co.edu.unisabana.demo.bd.jpa.CancionJPA;
-import co.edu.unisabana.demo.bd.orm.CancionORM;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,9 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
 
 //El alcance de una prueba unitaria, es la clase, no las dependencias que tenga esta clase.
 //Para trabajar con las dependencias, se utilizan Mocks
@@ -43,6 +39,7 @@ class CancionServiceTest {
         Assertions.assertThrows(ArithmeticException.class,
                 () -> service.guardarCancion("Baladas", 1, "Soledad")
         );
+
     }
 
     //Los test los vamos a llamar de esta manera
