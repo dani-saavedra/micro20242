@@ -1,11 +1,12 @@
 package co.edu.unisabana.demo.controller;
 
+import co.edu.unisabana.demo.bd.orm.CancionORM;
 import co.edu.unisabana.demo.controller.dto.CancionDTO;
 import co.edu.unisabana.demo.logica.CancionService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -25,4 +26,8 @@ public class CancionController {
         return "Cancion guardada";
     }
 
+    @GetMapping(path = "/canciones")
+    public List<CancionORM> guardarCancion(@RequestParam String titulo) {
+        return cancionService.consultarCancion(titulo);
+    }
 }

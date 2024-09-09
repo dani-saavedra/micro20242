@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -33,6 +34,14 @@ public class CancionService {
         nuevaCancion.setGenero(genero);
         cancionJPA.save(nuevaCancion);
         return true;
+    }
+
+    public List<CancionORM> consultarCancion(String titulo) {
+        List<CancionORM> list = cancionJPA.findByTitulo(titulo);
+        if (list.size() > 3) {
+            throw new ArithmeticException("Cancion nombre repetido");
+        }
+        return list;
     }
 
     public int sumar(int numero1, int numero2) {

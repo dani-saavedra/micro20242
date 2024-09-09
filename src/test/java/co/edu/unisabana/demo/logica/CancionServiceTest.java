@@ -1,6 +1,7 @@
 package co.edu.unisabana.demo.logica;
 
 import co.edu.unisabana.demo.bd.jpa.CancionJPA;
+import co.edu.unisabana.demo.bd.orm.CancionORM;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,6 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //El alcance de una prueba unitaria, es la clase, no las dependencias que tenga esta clase.
 //Para trabajar con las dependencias, se utilizan Mocks
@@ -68,7 +72,36 @@ class CancionServiceTest {
         boolean resultado = service.guardarCancion("Rock", 500, "Soledad");
         Assertions.assertTrue(resultado);
         Mockito.verify(cancionJPA).save(Mockito.any());
+    }
 
+    @Test
+    void GivenNoExisteElTitulo_WhenConsulteCancion_Then_returnException() {
+        String cancion = "Living on prayer";
+        Mockito.when(cancionJPA.findByTitulo(cancion)).thenReturn(new ArrayList<>());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            service.consultarCancion(cancion);
+        });
+    }
+
+    @Test
+    void GiveExisteElTitulo_WhenConsulteCancion_Then_returLista() {
+        //AAA =
+        // Inicia Preracion
+        ArrayList<CancionORM> cancionesSimuladas = new ArrayList<>();
+        cancionesSimuladas.add(new CancionORM());
+        String cancion = "Permitame";
+        Mockito.when(cancionJPA.findByTitulo(cancion)).thenReturn(cancionesSimuladas);
+        //Finaliza Arrange
+
+        //Inicia ejecuccion
+        List<CancionORM> cancionesORMS = service.consultarCancion(cancion);
+        //Finaliza Act
+
+        //Inicia Afirmacion
+        Assertions.assertEquals(1, cancionesORMS.size());
+        Assertions.assertFalse(cancionesORMS.isEmpty());
+        Mockito.verify(cancionJPA).findByTitulo(cancion);
+        //Finaliza Assertions
     }
 
     @Test
