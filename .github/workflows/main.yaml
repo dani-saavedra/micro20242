@@ -1,0 +1,17 @@
+name: CI
+
+#Cuando queremos que suceda este worfklow
+on:
+  pull_request:
+    branches:
+      - main
+  #Esto es para cuando YA se integra, no esta mal que lo haga, es opciona, el mandatorio es el de arriba.
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -
