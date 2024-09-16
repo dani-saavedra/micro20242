@@ -1,4 +1,6 @@
 name: CI
+#Github, gitlab, bitbucket
+#Jenkins, Github actions, CirlceCi
 
 #Cuando queremos que suceda este worfklow
 on:
@@ -10,8 +12,19 @@ on:
     branches:
       - main
 
+#Los actions son como plugins que alguien hizo y se puede utilizar
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      -
+      - uses: actions/checkout@v4
+        name: Descargando el repo
+      - name: Instalar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '17'
+      - name: Instalar el gradle
+        uses: gradle/actions/setup-gradle@v3
+      - name: Buildiear el proyecto
+        run: ./gradlew build
