@@ -99,7 +99,7 @@ class CancionServiceTest {
 
         //Inicia Afirmacion
         Assertions.assertEquals(1, cancionesORMS.size());
-        Assertions.assertFalse(cancionesORMS.isEmpty());
+        Assertions.assertTrue(cancionesORMS.isEmpty());
         Mockito.verify(cancionJPA).findByTitulo(cancion);
         //Finaliza Assertions
     }
