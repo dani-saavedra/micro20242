@@ -8,7 +8,7 @@ plugins {
 
 
 group = 'co.edu.unisabana'
-version = '0.0.1-SNAPSHOT'
+version = '0.1.2'
 
 java {
     targetCompatibility = 17

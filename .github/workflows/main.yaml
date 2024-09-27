@@ -1,7 +1,6 @@
 name: CI
 #Github, gitlab, bitbucket
 #Jenkins, Github actions, CirlceCi
-
 #Cuando queremos que suceda este worfklow
 on:
   pull_request:
@@ -37,3 +36,12 @@ jobs:
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USUARIO }}
           password: ${{ secrets.DOCKER_CLAVE }}
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          image-ref: 'docker.io/danielsabana/guarderia:latest'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
