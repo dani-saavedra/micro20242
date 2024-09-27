@@ -28,3 +28,12 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
       - name: Buildiear el proyecto
         run: ./gradlew build
+      - uses: mr-smithers-excellent/docker-build-push@v6
+        name: Crear y subir la imagen
+        with:
+          image: danielsabana/guarderia
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKER_USUARIO }}
+          password: ${{ secrets.DOCKER_CLAVE }}
